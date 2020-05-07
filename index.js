@@ -8,13 +8,12 @@ const config = require("./config/db");
 const PORT = process.env.PORT || 3030;
 const app = express();
 
-//configure database and mongoose
 mongoose.set("useCreateIndex", true);
 
 mongoose
     .connect(config.database, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
     })
     .then(() => {
         console.log("MongoDB Atlas is connected");
@@ -28,15 +27,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
-// define first route
-app.get("/", (req, res) => {
-    console.log("Hello MEVN Soldier");
-});
-
 const userRoutes = require("./api/user/route/user");
-
 app.use("/user", userRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Listeing on port: ${PORT}`);
+    console.log(`Listening on port: ${PORT}`);
 });
